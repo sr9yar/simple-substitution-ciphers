@@ -1,11 +1,11 @@
-import { Ceasar } from "./ciphers/caesar";
+import { Caesar } from "./ciphers/caesar";
 
 
-const ceasar = new Ceasar();
+const caesar = new Caesar();
 
-ceasar.setVerbose(true);
-const encrypted = ceasar.encrypt();
-const decrypted = ceasar.decrypt();
+caesar.setVerbose(true);
+const encrypted = caesar.encrypt();
+const decrypted = caesar.decrypt();
 
 
 console.log(`Encrypted: ${encrypted}\n`);

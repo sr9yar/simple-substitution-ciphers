@@ -2,9 +2,9 @@ import { modulo } from "src/common";
 import { Cipher } from "./cipher";
 
 /**
- * Ceasar cipher class
+ * Caesar cipher class
  */
-export class Ceasar extends Cipher {
+export class Caesar extends Cipher {
 
   private shift: number = -3;
   // 'abcdefghijklmnopqrstuvwxyz'
