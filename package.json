@@ -1,6 +1,6 @@
 {
   "name": "simple-substitution-ciphers",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Simple Substitution Ciphers",
   "type": "module",
   "main": "dist/index.js",
