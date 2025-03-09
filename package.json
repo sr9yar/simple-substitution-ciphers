@@ -1,18 +1,26 @@
 {
   "name": "simple-substitution-ciphers",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple Substitution Ciphers",
   "type": "module",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/main.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Yaroslav",
+  "repository": "https://github.com/sr9yar/simple-substitution-ciphers",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.13.9",
     "nodemon": "^3.1.9",

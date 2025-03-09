@@ -1,4 +1,4 @@
-import { Caesar } from "./ciphers/caesar";
+import { Caesar } from './ciphers/caesar';
 
 
 const caesar = new Caesar();

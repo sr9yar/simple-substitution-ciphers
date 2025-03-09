@@ -1,5 +1,5 @@
-import { modulo } from "src/common";
-import { Cipher } from "./cipher";
+import { modulo } from '../common';
+import { Cipher } from './cipher';
 
 /**
  * Caesar cipher class
