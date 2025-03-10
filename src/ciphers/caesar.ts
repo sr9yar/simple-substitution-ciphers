@@ -1,4 +1,7 @@
-import { modulo } from '../common';
+import { ALPHABET_ENGLISH } from '../lib/constants';
+import {
+  ensurePositive,
+} from '../lib/utility';
 import { Cipher } from './cipher';
 
 /**
@@ -6,14 +9,22 @@ import { Cipher } from './cipher';
  */
 export class Caesar extends Cipher {
 
-  private shift: number = -3;
-  // 'abcdefghijklmnopqrstuvwxyz'
-  // 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  private alphabet: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  private characterShift: number = -3;
+
   // private plaintext: string = 'CRYptography';
   private plaintext: string[] = 'cryptography'.split('');
 
   private ciphertext: string[] = 'zovmqldoxmev'.split('');
+
+
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super();
+    this.setAlphabet(ALPHABET_ENGLISH);
+  }
 
 
 
@@ -34,13 +45,30 @@ export class Caesar extends Cipher {
   }
 
 
+  /**
+   * Character shift
+   */
+  get shift(): number {
+    return this.characterShift;
+  }
+
 
   /**
    * Setting shift
    * @param shift 
    */
-  setShift(shift: number): void {
-    this.shift = shift;
+  set shift(value: number) {
+    if (value > this.mod) {
+      this.characterShift = this.mod;
+      this.warn(`Shift cannnot exceed alphabet size. Provided value ${value}.`);
+      return;
+    }
+    if (value < -this.mod) {
+      this.characterShift = -this.mod;
+      this.warn(`Shift cannnot exceed alphabet size. Provided value ${value}.`);
+      return;
+    }
+    this.characterShift = value;
   }
 
 
@@ -160,7 +188,7 @@ export class Caesar extends Cipher {
    * @param index 
    */
   private ensurePositive(index: number): number {
-    return modulo(index < 0 ? index + this.alphabet.length : index, this.alphabet.length);
+    return ensurePositive(index, this.alphabet.length);
   }
 }
 
