@@ -143,6 +143,8 @@ export class AffineRecurrent extends Cipher {
    * Encrypt
    */
   encrypt(): string {
+    this.clearLogs();
+
     this.log(`Encrypting (y = (α * x + β) mod n): ${this.plaintextString}`);
 
     const encrypted: string[] = [];
@@ -197,6 +199,7 @@ export class AffineRecurrent extends Cipher {
    * Decrypt
    */
   decrypt(text?: string): string {
+    this.clearLogs();
 
     const ciphertext = text ? stringToArray(text) : this.ciphertext;
 

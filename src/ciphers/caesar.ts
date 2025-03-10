@@ -108,6 +108,8 @@ export class Caesar extends Cipher {
    * Encrypt
    */
   encrypt(): string {
+    this.clearLogs();
+
     this.log(`Encrypting: ${this.plaintextString}`);
 
     const encrypted: string[] = [];
@@ -137,6 +139,7 @@ export class Caesar extends Cipher {
    * Decrypt
    */
   decrypt(text?: string): string {
+    this.clearLogs();
 
     const ciphertext = text ? this.stringToArray(text) : this.ciphertext;
 

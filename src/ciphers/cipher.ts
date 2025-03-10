@@ -7,11 +7,13 @@ export abstract class Cipher {
 
   private verbose: boolean = true;
 
-  protected alphabet: string[];
+  public alphabet: string[];
   protected alphabetMap: Map<string, number>;
 
   abstract encrypt(): string;
   abstract decrypt(): string;
+
+  logs: string[];
 
   /**
    * Set print to console
@@ -27,9 +29,6 @@ export abstract class Cipher {
    * @returns 
    */
   log(message: any, ...optionalParams: any[]): void {
-    if (!this.verbose) {
-      return;
-    }
     let color: any = 'white';
     const colorOptionIndex = optionalParams.findIndex((o: any) => o.toString().startsWith('color:'));
     if (colorOptionIndex !== -1) {
@@ -37,7 +36,14 @@ export abstract class Cipher {
       optionalParams.splice(colorOptionIndex, 1);
     }
     optionalParams.pop();
-    console.log(`%c ${message}`, `color:${color};`, ...optionalParams);
+    const messageString = `${message}`;
+
+    this.logs.push(messageString);
+
+    if (!this.verbose) {
+      return;
+    }
+    console.log(`%c ${messageString}`, `color:${color};`, ...optionalParams);
   }
 
   /**
@@ -63,6 +69,12 @@ export abstract class Cipher {
     this.alphabetMap = stringToMap(alphabet);
   }
 
+  /**
+   * Reset logs
+   */
+  clearLogs(): void {
+    this.logs.splice(0, this.logs.length);
+  }
 
   /**
    * Alphabet length
