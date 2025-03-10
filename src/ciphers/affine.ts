@@ -1,4 +1,4 @@
-import { EuclideanAlgorithm } from 'src/lib/euclidean-algorithm';
+import { EuclideanAlgorithm } from '../lib/euclidean-algorithm';
 import { ALPHABET_RUSSIAN } from '../lib/constants';
 import {
   areCoprime,
