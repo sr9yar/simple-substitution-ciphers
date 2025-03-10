@@ -13,7 +13,7 @@ export abstract class Cipher {
   abstract encrypt(): string;
   abstract decrypt(): string;
 
-  logs: string[];
+  logs: string[] = [];
 
   /**
    * Set print to console
@@ -73,7 +73,7 @@ export abstract class Cipher {
    * Reset logs
    */
   clearLogs(): void {
-    this.logs.splice(0, this.logs.length);
+    this.logs?.splice(0, this.logs.length);
   }
 
   /**
