@@ -65,6 +65,13 @@ export class AffineRecurrent extends Cipher {
     return this.β1;
   }
 
+  /**
+   * β₂
+   */
+  get b2(): number {
+    return this.β2;
+  }
+
 
   /**
     * α₁
