@@ -278,10 +278,11 @@ export class AffineRecurrent extends Cipher {
    * @returns [number, number, nubmer] index encrypted, a3, b3
    */
   encryptLetter(x: string, a3: number, b3: number, i: number | undefined = undefined): [number, number, number] {
-    const y = a3 * this.alphabetMap.get(x) + b3;
+    const xIndex = this.alphabetMap.get(x);
+    const y = a3 * xIndex + b3;
     const index = moduloPositive(y, this.mod);
     const encrytedLetter = this.alphabet[index];
-    this.log(`y${sub(i + 1)} = (α * x${sub(i + 1)} + β) mod n = (${a3} * ${x} + ${b3}) mod ${this.mod} = ${encrytedLetter} (${index})`);
+    this.log(`y${sub(i + 1)} = (α * x${sub(i + 1)} + β) mod n = (${a3} * ${xIndex} + ${b3}) mod ${this.mod} = ${encrytedLetter} (${index})`);
     return [index, a3, b3];
   }
 

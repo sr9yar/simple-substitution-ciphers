@@ -1,6 +1,7 @@
 import { ALPHABET_ENGLISH } from '../lib/constants';
 import {
   ensurePositive,
+  stringToArray,
 } from '../lib/utility';
 import { Cipher } from './cipher';
 
@@ -45,12 +46,14 @@ export class Caesar extends Cipher {
   }
 
 
+
   /**
    * Character shift
    */
   get shift(): number {
     return this.characterShift;
   }
+
 
 
   /**
@@ -78,7 +81,7 @@ export class Caesar extends Cipher {
    * @param text 
    */
   setPlaintext(text: string): void {
-    this.plaintext = this.stringToArray(text)
+    this.plaintext = stringToArray(text)
   }
 
 
@@ -88,18 +91,7 @@ export class Caesar extends Cipher {
    * @param text 
    */
   setCiphertext(text: string | string[]): void {
-    this.ciphertext = this.stringToArray(text)
-  }
-
-
-
-  /**
-   * Setting alphabet
-   * @param alphabet 
-   * @returns 
-   */
-  setAlphabet(alphabet: Array<string> | string): void {
-    this.alphabet = this.stringToArray(alphabet)
+    this.ciphertext = stringToArray(text)
   }
 
 
@@ -116,12 +108,13 @@ export class Caesar extends Cipher {
 
     for (let i = 0; i < this.plaintext.length; i++) {
       const currentLetter = this.plaintext[i];
-      const currentIndex = this.alphabet.indexOf(currentLetter);
-      if (currentIndex === -1) {
+      const currentIndex = this.alphabetMap.get(currentLetter);
+      if (currentIndex === undefined) {
         encrypted.push(currentLetter);
+        this.log(`${currentLetter} (${currentIndex ?? '-'})\t→  ${currentLetter} (not in the alphabet) `)
         continue;
       }
-      const shiftedIndex = this.ensurePositive(currentIndex + this.shift);
+      const shiftedIndex = ensurePositive(currentIndex + this.shift, this.mod);
       const encryptedLetter = this.alphabet[shiftedIndex];
       this.log(`${currentLetter} (${currentIndex})\t→  ${encryptedLetter} (${shiftedIndex}) `)
       encrypted.push(encryptedLetter);
@@ -141,19 +134,21 @@ export class Caesar extends Cipher {
   decrypt(text?: string): string {
     this.clearLogs();
 
-    const ciphertext = text ? this.stringToArray(text) : this.ciphertext;
-
-    this.log(`Decrypting: ${this.ciphertextString}`);
+    const ciphertext = text ? stringToArray(text) : this.ciphertext;
 
     const decrypted: string[] = [];
     for (let i = 0; i < ciphertext.length; i++) {
+
       const currentLetter = ciphertext[i];
-      const currentIndex = this.alphabet.indexOf(currentLetter);
-      if (currentIndex === -1) {
+
+      const currentIndex = this.alphabetMap.get(currentLetter);
+
+      if (currentIndex === undefined) {
         decrypted.push(currentLetter);
+        this.log(`${currentLetter} (${currentIndex ?? '-'})\t→  ${currentLetter} not in the alphabet (not encrypted) `);
         continue;
       }
-      const shiftedIndex = this.ensurePositive(currentIndex + -(this.shift));
+      const shiftedIndex = ensurePositive(currentIndex + -(this.shift), this.mod);
       const decryptedLetter = this.alphabet[shiftedIndex];
       this.log(`${currentLetter} (${currentIndex})\t→  ${decryptedLetter} (${shiftedIndex}) `)
       decrypted.push(decryptedLetter);
@@ -165,34 +160,7 @@ export class Caesar extends Cipher {
     return decryptionResult;
   }
 
-  /**
-   * Split string to array
-   * @param str Array | string 
-   * @returns Array
-   */
-  private stringToArray(str: Array<string> | string): string[] {
 
-    if (Array.isArray(str)) {
-      return str;
-    }
-
-    return Array.from(
-      new Set(
-        str
-          .toLowerCase()
-          .split('')
-      )
-    );
-
-  }
-
-  /**
-   * Ensure index is a positive number
-   * @param index 
-   */
-  private ensurePositive(index: number): number {
-    return ensurePositive(index, this.alphabet.length);
-  }
 }
 
 

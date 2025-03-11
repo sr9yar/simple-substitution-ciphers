@@ -223,10 +223,11 @@ export class Affine extends Cipher {
    * @param letter 
    */
   encryptLetter(x: string, i: number | undefined = undefined): number {
-    const y = this.α * this.alphabetMap.get(x) + this.β;
+    const xIndex = this.alphabetMap.get(x);
+    const y = this.α * xIndex + this.β;
     const index = moduloPositive(y, this.mod);
     const encrytedLetter = this.alphabet[index];
-    this.log(`y${sub(i)} = (α * x${sub(i)} + β) mod n = (${this.α} * ${x} + ${this.β}) mod ${this.mod} = ${encrytedLetter} (${index})`);
+    this.log(`y${sub(i)} = (α * x${sub(i)} + β) mod n = (${this.α} * ${xIndex} + ${this.β}) mod ${this.mod} = ${encrytedLetter} (${index})`);
     return index;
   }
 

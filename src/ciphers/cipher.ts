@@ -7,8 +7,8 @@ export abstract class Cipher {
 
   private verbose: boolean = true;
 
-  public alphabet: string[];
-  protected alphabetMap: Map<string, number>;
+  public alphabet: string[] = [];
+  public alphabetMap: Map<string, number> = new Map();
 
   abstract encrypt(): string;
   abstract decrypt(): string;

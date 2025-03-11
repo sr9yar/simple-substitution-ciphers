@@ -68,11 +68,7 @@ export function stringToArray(str: Array<string> | string): string[] {
   }
 
   return Array.from(
-    new Set(
-      str
-        .toLowerCase()
-        .split('')
-    )
+    str.split('')
   );
 }
 

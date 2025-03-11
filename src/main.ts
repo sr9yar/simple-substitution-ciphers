@@ -7,13 +7,17 @@
 
 
 // const cipher = new Caesar();
-// const cipher = new Affine();
-// const cipher = new AffineRecurrent();
+// // const cipher = new Affine();
+// // const cipher = new AffineRecurrent();
 
 // cipher.setVerbose(true);
 
-// const encrypted = cipher.encrypt();
-// const decrypted = cipher.decrypt();
+// cipher.setPlaintext('plaintext');
 
+
+// const encrypted = cipher.encrypt();
 // console.log(`Encrypted: ${encrypted}\n`);
+
+
+// const decrypted = cipher.decrypt();
 // console.log(`Decrypted: ${decrypted}\n`);
