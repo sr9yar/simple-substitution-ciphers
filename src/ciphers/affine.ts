@@ -61,7 +61,7 @@ export class Affine extends Cipher {
     */
   set a(value: number) {
     if (!areCoprime(value, this.mod)) {
-      throw Error(`α₂ must be coprime with ${this.mod}`);
+      throw Error(`α (${value}) must be coprime with ${this.mod}`);
     }
     this.α = value;
   }

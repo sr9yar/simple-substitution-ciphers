@@ -71,7 +71,7 @@ export class AffineRecurrent extends Cipher {
     */
   set a1(value: number,) {
     if (!areCoprime(value, this.mod)) {
-      throw Error(`α₁ must be coprime with ${this.mod}`);
+      throw Error(`α₁ (${value}) must be coprime with ${this.mod}`);
     }
     this.α1 = value;
   }
@@ -81,7 +81,7 @@ export class AffineRecurrent extends Cipher {
     */
   set a2(value: number,) {
     if (!areCoprime(value, this.mod)) {
-      throw Error(`α₂ must be coprime with ${this.mod}`);
+      throw Error(`α₂ (${value}) must be coprime with ${this.mod}`);
     }
     this.α2 = value;
   }
