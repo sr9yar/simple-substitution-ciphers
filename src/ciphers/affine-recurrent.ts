@@ -171,7 +171,7 @@ export class AffineRecurrent extends Cipher {
       const currentIndex = this.alphabetMap.get(currentLetter);
       if (currentIndex === undefined) {
         encrypted.push(currentLetter);
-        this.log(`y${sub(i)} = ${currentLetter} (is not in the alphabet)`);
+        this.log(`y${sub(i + 1)} = ${currentLetter} (is not in the alphabet)`);
         continue;
       }
       const [a, b] = this.getEncryptionPair(encryptionIndex, [a1, a2], [b1, b2]);
@@ -219,7 +219,7 @@ export class AffineRecurrent extends Cipher {
     let b1 = this.β1;
     let b2 = this.β2;
 
-    let encryptionIndex: number = 0;
+    let decryptionIndex: number = 0;
 
     for (let i = 0; i < ciphertext.length; i++) {
       const currentLetter = ciphertext[i];
@@ -227,11 +227,11 @@ export class AffineRecurrent extends Cipher {
       const currentIndex = this.alphabetMap.get(currentLetter);
       if (currentIndex === undefined) {
         decrypted.push(currentLetter);
-        this.log(`y${sub(i)} = ${currentLetter} (is not in the alphabet)`);
+        this.log(`y${sub(i + 1)} = ${currentLetter} (is not in the alphabet)`);
         continue;
       }
 
-      const [a3, b3] = this.getDecryptionPair(encryptionIndex, [a1, a2], [b1, b2]);
+      const [a3, b3] = this.getDecryptionPair(decryptionIndex, [a1, a2], [b1, b2]);
 
       const decryptedIndex = this.decryptLetter(currentLetter, a3, b3, i);
 
@@ -248,7 +248,7 @@ export class AffineRecurrent extends Cipher {
       b1 = b2;
       a2 = a3;
       b2 = b3;
-      encryptionIndex++;
+      decryptionIndex++;
     }
 
     const decryptionResult = decrypted.join('');
@@ -267,13 +267,16 @@ export class AffineRecurrent extends Cipher {
   decryptLetter(letter: string, a3: number = 1, b3: number = 1, i: number | undefined = undefined): number | null {
     // y
     const letterIndex = this.alphabetMap.get(letter);
+
+    const idx: string = sub(i !== undefined ? i + 1 : undefined);
+
     if (letterIndex === undefined) {
-      this.log(`y${sub(i)} = ${letter} (is not in the alphabet)`);
+      this.log(`y${idx} = ${letter} (is not in the alphabet)`);
       return null;
     }
     const index = moduloPositive(a3 * (letterIndex - b3), this.mod);
     const decrytedLetter = this.alphabet[index];
-    this.log(`y${sub(i)} = α⁻¹(y${sub(i)} - β) mod n = ${a3}(${letterIndex} - ${b3}) mod ${this.mod} = ${decrytedLetter} (${index})`);
+    this.log(`y${idx} = α${idx}⁻¹(y${idx} - β${idx}) mod n = ${a3}(${letterIndex} - ${b3}) mod ${this.mod} = ${decrytedLetter} (${index})`);
     return index;
   }
 
@@ -289,7 +292,10 @@ export class AffineRecurrent extends Cipher {
     const y = a3 * xIndex + b3;
     const index = moduloPositive(y, this.mod);
     const encrytedLetter = this.alphabet[index];
-    this.log(`y${sub(i + 1)} = (α * x${sub(i + 1)} + β) mod n = (${a3} * ${xIndex} + ${b3}) mod ${this.mod} = ${encrytedLetter} (${index})`);
+
+    const idx: string = sub(i !== undefined ? i + 1 : undefined);
+
+    this.log(`y${idx} = (α${idx} * x${idx} + β${idx}) mod n = (${a3} * ${xIndex} + ${b3}) mod ${this.mod} = ${encrytedLetter} (${index})`);
     return [index, a3, b3];
   }
 
@@ -303,18 +309,24 @@ export class AffineRecurrent extends Cipher {
    * @returns 
    */
   getEncryptionPair(index: number, a: [number, number], b: [number, number]): [number, number] {
+
+    const idx: number = index + 1;
+
     if (index === 0) {
+      this.log(` α${sub(idx)} = ${this.α1}`);
+      this.log(` β${sub(idx)} = ${this.β1}`);
       return [this.α1, this.β1];
-    }
-    if (index === 1) {
+    } else if (index === 1) {
+      this.log(` α${sub(idx)} = ${this.α2}`);
+      this.log(` β${sub(idx)} = ${this.β2}`);
       return [this.α2, this.β2];
     }
 
     const a3 = moduloPositive(a[0] * a[1], this.mod);
     const b3 = moduloPositive(b[0] + b[1], this.mod);
 
-    this.log(` α${sub(index)} = α${sub(index - 1)} * α${sub(index - 2)} mod n = ${a[0]} * ${a[1]} mod ${this.mod} = ${a3}`);
-    this.log(` β${sub(index)} = (β${sub(index - 1)} + β${sub(index - 2)}) mod n = (${b[0]} + ${b[1]}) mod ${this.mod} = ${b3}`);
+    this.log(` α${sub(idx)} = α${sub(idx - 1)} * α${sub(idx - 2)} mod n = ${a[0]} * ${a[1]} mod ${this.mod} = ${a3}`);
+    this.log(` β${sub(idx)} = (β${sub(idx - 1)} + β${sub(idx - 2)}) mod n = (${b[0]} + ${b[1]}) mod ${this.mod} = ${b3}`);
 
     return [a3, b3];
   }
@@ -334,6 +346,8 @@ export class AffineRecurrent extends Cipher {
 
     let calcStringA: string = '';
     let calcStringB: string = '';
+
+    const idx: number = index + 1;
 
     if (index === 0) {
       a3 = this.α1;
@@ -366,15 +380,15 @@ export class AffineRecurrent extends Cipher {
     } else {
       a3 = moduloPositive(a[0] * a[1], this.mod);
       b3 = b[0] + b[1];
-      calcStringA = ` = α${sub(index - 1)}⁻¹ * α${sub(index)}⁻¹ mod n = ${a[0]} * ${a[1]} mod ${this.mod}`;
-      calcStringB = ` = (β${sub(index - 1)} + β${sub(index)}) mod n = (${b[0]} + ${b[1]}) mod ${this.mod}`;
+      calcStringA = ` = α${sub(idx - 2)}⁻¹ * α${sub(idx - 1)}⁻¹ mod n = ${a[0]} * ${a[1]} mod ${this.mod}`;
+      calcStringB = ` = (β${sub(idx - 2)} + β${sub(idx - 1)}) mod n = (${b[0]} + ${b[1]}) mod ${this.mod}`;
 
     }
 
     b3 = ensurePositive(b3, this.mod);
 
-    this.log(` α${sub(index + 1)}⁻¹${calcStringA} = ${a3}`);
-    this.log(` β${sub(index + 1)}${calcStringB} = ${b3}`);
+    this.log(` α${sub(idx)}⁻¹${calcStringA} = ${a3}`);
+    this.log(` β${sub(idx)}${calcStringB} = ${b3}`);
 
     // this.log(`α⁻¹ mod n = ${this.α1}⁻¹ mod ${this.mod} = ${aInverse}`);
 

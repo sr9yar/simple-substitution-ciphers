@@ -206,13 +206,16 @@ export class Affine extends Cipher {
   decryptLetter(letter: string, aInverse: number = 1, i: number | undefined = undefined): number | null {
     // y
     const letterIndex = this.alphabetMap.get(letter);
+
+    const idx: string = sub(i !== undefined ? i + 1 : undefined);
+
     if (letterIndex === undefined) {
-      this.log(`y${sub(i)} = ${letter} (is not in the alphabet)`);
+      this.log(`y${idx} = ${letter} (is not in the alphabet)`);
       return null;
     }
     const index = moduloPositive(aInverse * (letterIndex - this.β), this.mod);
     const decrytedLetter = this.alphabet[index];
-    this.log(`y${sub(i)} = α⁻¹(y${sub(i)} - β) mod n = ${aInverse}(${letterIndex} - ${this.β}) mod ${this.mod} = ${decrytedLetter} (${index})`);
+    this.log(`y${idx} = α⁻¹(y${idx} - β) mod n = ${aInverse}(${letterIndex} - ${this.β}) mod ${this.mod} = ${decrytedLetter} (${index})`);
     return index;
   }
 
@@ -226,11 +229,11 @@ export class Affine extends Cipher {
     const xIndex = this.alphabetMap.get(x);
     const y = this.α * xIndex + this.β;
     const index = moduloPositive(y, this.mod);
+    const idx: string = sub(i !== undefined ? i + 1 : undefined);
     const encrytedLetter = this.alphabet[index];
-    this.log(`y${sub(i)} = (α * x${sub(i)} + β) mod n = (${this.α} * ${xIndex} + ${this.β}) mod ${this.mod} = ${encrytedLetter} (${index})`);
+    this.log(`y${idx} = (α * x${idx} + β) mod n = (${this.α} * ${xIndex} + ${this.β}) mod ${this.mod} = ${encrytedLetter} (${index})`);
     return index;
   }
-
 
 
 

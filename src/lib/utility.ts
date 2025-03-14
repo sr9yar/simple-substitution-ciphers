@@ -90,9 +90,13 @@ export function stringToMap(str: Array<string> | string): Map<string, number> {
  * @param num 
  */
 export function sub(num: number): string {
-  const symbol = NUMBER_SUBSCRIPT.get(num);
-  return symbol ?? '';
-
+  let s: string = '';
+  const parts = num.toString().split('').map(Number);
+  for (let i = 0; i < parts.length; i++) {
+    const symbol = NUMBER_SUBSCRIPT.get(parts[i]);
+    s += symbol ?? parts[i];
+  }
+  return s;
 }
 
 /**
