@@ -358,9 +358,9 @@ export class AffineRecurrent extends Cipher {
       e.logger = { log: this.log.bind(this) };
 
       const result = e.calc(a3, this.mod);
-      // this.log(`\n`);
-      // e.printResults();
-      // this.log(`\n`);
+      this.log(`\n`);
+      e.printResults();
+      this.log(`\n`);
 
       // α⁻¹
       a3 = ensurePositive(result[1], this.mod);
@@ -374,9 +374,9 @@ export class AffineRecurrent extends Cipher {
       e.logger = { log: this.log.bind(this) };
 
       const result = e.calc(a3, this.mod);
-      // this.log(`\n`);
-      // e.printResults();
-      // this.log(`\n`);
+      this.log(`\n`);
+      e.printResults();
+      this.log(`\n`);
 
       // α⁻¹
       a3 = ensurePositive(result[1], this.mod);
