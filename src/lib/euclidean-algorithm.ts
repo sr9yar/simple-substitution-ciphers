@@ -1,3 +1,4 @@
+import { Logger } from './types/logger.type';
 import {
   integerDivision,
   modulo,
@@ -24,6 +25,8 @@ export class EuclideanAlgorithm {
 
   private _currentRow: number = -1;
 
+  // allows to use a customer logger
+  logger: Logger = console;
 
   init(a: number, b: number) {
     this.addRow();
@@ -277,16 +280,16 @@ export class EuclideanAlgorithm {
    * printResults
    */
   printResults(): void {
-    console.log(`Таблица Алгоритм Евклида для значений a = ${this.a}, b = ${this.b}`);
+    this.logger.log(`Таблица Алгоритм Евклида для значений a = ${this.a}, b = ${this.b}`);
 
     const rows = this.getRows();
     rows.forEach((r: string) => {
-      console.log(`%c ${r}`, 'color:yellow');
+      this.logger.log(`%c ${r}`, 'color:yellow');
     });
 
     const result = this.getResult();
 
-    console.log(`НОД: ${result[0]}, ${result[1]}, ${result[2]}`);
+    this.logger.log(`НОД: ${result[0]}, ${result[1]}, ${result[2]}`);
   }
 
 }

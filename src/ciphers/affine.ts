@@ -165,6 +165,8 @@ export class Affine extends Cipher {
     const decrypted: string[] = [];
 
     const e = new EuclideanAlgorithm();
+    e.logger = { log: this.log };
+
     const result = e.calc(this.α, this.mod);
 
     this.log(`\n`);
