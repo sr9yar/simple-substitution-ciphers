@@ -284,7 +284,7 @@ export class EuclideanAlgorithm {
 
     const rows = this.getRows();
     rows.forEach((r: string) => {
-      this.logger.log(`%c ${r}`, 'color:yellow');
+      this.logger.log(`${r}`, 'color:yellow');
     });
 
     const result = this.getResult();
