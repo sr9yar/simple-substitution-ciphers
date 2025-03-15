@@ -1,22 +1,22 @@
-// import {
-//   // Caesar,
-//   AffineRecurrent,
-//   // Affine,
-// } from './ciphers';
+import {
+  Caesar,
+  AffineRecurrent,
+  Affine,
+} from './ciphers';
 
 
 
-// // const cipher = new Caesar();
-// // const cipher = new Affine();
+// const cipher = new Caesar();
+const cipher = new Affine();
 // const cipher = new AffineRecurrent();
 
 // cipher.setVerbose(true);
-// // cipher.setPlaintext('plaintext');
+// cipher.setPlaintext('plaintext');
 
 
-// const encrypted = cipher.encrypt();
-// console.log(`Encrypted: ${encrypted}\n`);
+const encrypted = cipher.encrypt();
+console.log(`Encrypted: ${encrypted}\n`);
 
 
-// const decrypted = cipher.decrypt();
-// console.log(`Decrypted: ${decrypted}\n`);
+const decrypted = cipher.decrypt();
+console.log(`Decrypted: ${decrypted}\n`);

@@ -355,7 +355,8 @@ export class AffineRecurrent extends Cipher {
       calcStringA = ` = ${a3}⁻¹ mod ${this.mod}`;
 
       const e = new EuclideanAlgorithm();
-      e.logger = { log: this.log };
+      e.logger = { log: this.log.bind(this) };
+
       const result = e.calc(a3, this.mod);
       // this.log(`\n`);
       // e.printResults();
@@ -370,7 +371,7 @@ export class AffineRecurrent extends Cipher {
       calcStringA = ` = ${a3}⁻¹ mod ${this.mod}`;
 
       const e = new EuclideanAlgorithm();
-      e.logger = { log: this.log };
+      e.logger = { log: this.log.bind(this) };
 
       const result = e.calc(a3, this.mod);
       // this.log(`\n`);
