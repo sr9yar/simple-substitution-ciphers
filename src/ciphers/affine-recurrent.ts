@@ -152,7 +152,7 @@ export class AffineRecurrent extends Cipher {
   encrypt(): string {
     this.clearLogs();
 
-    this.log(`Encrypting (y = (α * x + β) mod n): ${this.plaintextString}`);
+    this.log(`Encrypting (y = (α × x + β) mod n): ${this.plaintextString}`);
 
     const encrypted: string[] = [];
 
@@ -295,7 +295,7 @@ export class AffineRecurrent extends Cipher {
 
     const idx: string = sub(i !== undefined ? i + 1 : undefined);
 
-    this.log(`y${idx} = (α${idx} * x${idx} + β${idx}) mod n = (${a3} * ${xIndex} + ${b3}) mod ${this.mod} = ${encrytedLetter} (${index})`);
+    this.log(`y${idx} = (α${idx} × x${idx} + β${idx}) mod n = (${a3} × ${xIndex} + ${b3}) mod ${this.mod} = ${encrytedLetter} (${index})`);
     return [index, a3, b3];
   }
 
@@ -325,7 +325,7 @@ export class AffineRecurrent extends Cipher {
     const a3 = moduloPositive(a[0] * a[1], this.mod);
     const b3 = moduloPositive(b[0] + b[1], this.mod);
 
-    this.log(` α${sub(idx)} = α${sub(idx - 1)} * α${sub(idx - 2)} mod n = ${a[0]} * ${a[1]} mod ${this.mod} = ${a3}`);
+    this.log(` α${sub(idx)} = α${sub(idx - 1)} × α${sub(idx - 2)} mod n = ${a[0]} × ${a[1]} mod ${this.mod} = ${a3}`);
     this.log(` β${sub(idx)} = (β${sub(idx - 1)} + β${sub(idx - 2)}) mod n = (${b[0]} + ${b[1]}) mod ${this.mod} = ${b3}`);
 
     return [a3, b3];
@@ -380,7 +380,7 @@ export class AffineRecurrent extends Cipher {
     } else {
       a3 = moduloPositive(a[0] * a[1], this.mod);
       b3 = b[0] + b[1];
-      calcStringA = ` = α${sub(idx - 2)}⁻¹ * α${sub(idx - 1)}⁻¹ mod n = ${a[0]} * ${a[1]} mod ${this.mod}`;
+      calcStringA = ` = α${sub(idx - 2)}⁻¹ × α${sub(idx - 1)}⁻¹ mod n = ${a[0]} × ${a[1]} mod ${this.mod}`;
       calcStringB = ` = (β${sub(idx - 2)} + β${sub(idx - 1)}) mod n = (${b[0]} + ${b[1]}) mod ${this.mod}`;
 
     }

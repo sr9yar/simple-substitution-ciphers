@@ -119,7 +119,7 @@ export class Affine extends Cipher {
   encrypt(): string {
     this.clearLogs();
 
-    this.log(`Encrypting (y = (α * x + β) mod n): ${this.plaintextString}`);
+    this.log(`Encrypting (y = (α × x + β) mod n): ${this.plaintextString}`);
 
     const encrypted: string[] = [];
 
@@ -231,7 +231,7 @@ export class Affine extends Cipher {
     const index = moduloPositive(y, this.mod);
     const idx: string = sub(i !== undefined ? i + 1 : undefined);
     const encrytedLetter = this.alphabet[index];
-    this.log(`y${idx} = (α * x${idx} + β) mod n = (${this.α} * ${xIndex} + ${this.β}) mod ${this.mod} = ${encrytedLetter} (${index})`);
+    this.log(`y${idx} = (α × x${idx} + β) mod n = (${this.α} × ${xIndex} + ${this.β}) mod ${this.mod} = ${encrytedLetter} (${index})`);
     return index;
   }
 
