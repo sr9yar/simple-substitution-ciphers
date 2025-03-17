@@ -22,8 +22,8 @@ npm i --save simple-substitution-ciphers
 
 ```js
 // Создание экземпляра класса
-	import { Caesar } from './ciphers';
-	const cipher = new Caesar();
+import { Caesar } from './ciphers';
+const cipher = new Caesar();
 
 // Установка открытого текста / шифр текста
 cipher.setPlaintext('криптография');
@@ -49,8 +49,8 @@ console.log(`Decrypted: ${decrypted}\n`);
 
 ```js
 // Создание экземпляра класса
-	import { Affine } from './ciphers';
-	const cipher = new Affine();
+import { Affine } from './ciphers';
+const cipher = new Affine();
 
 // Установка открытого текста / шифр текста
 cipher.setPlaintext('криптография');
@@ -78,8 +78,8 @@ console.log(`Decrypted: ${decrypted}\n`);
 
 ```js
 // Создание экземпляра класса
-	import { AffineRecurrent } from './ciphers';
-	const cipher = new AffineRecurrent();
+import { AffineRecurrent } from './ciphers';
+const cipher = new AffineRecurrent();
 
 // Установка открытого текста / шифр текста
 cipher.setPlaintext('криптография');
