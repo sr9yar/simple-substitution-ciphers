@@ -16,7 +16,8 @@
     "prepublish": "npm run build",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/main.ts"
+    "dev": "nodemon ./src/main.ts",
+    "watch": "nodemon ./src/main.ts"
   },
   "author": "Yaroslav",
   "repository": "https://github.com/sr9yar/simple-substitution-ciphers",

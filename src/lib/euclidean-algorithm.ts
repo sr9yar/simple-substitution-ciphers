@@ -229,7 +229,7 @@ export class EuclideanAlgorithm {
    * Значения
    * a (GCD)
    * x2  
-   * y2
+   * y2 a⁻¹
    * @returns 
    */
   getResult(): [number, number, number] {
